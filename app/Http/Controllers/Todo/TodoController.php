@@ -14,18 +14,20 @@ class TodoController extends Controller
     public function index()
     {
         $max_data = 3;
-        
-        
 
         if(request()->has('search')) {
-            $data = Todo::where('task', 'like', '%' . request('search') . '%')->orderBy('task','asc')->paginate($max_data)->withQueryString();
+            $search = strtolower(request('search'));
+            $data = Todo::whereRaw('LOWER(task) LIKE ?', ['%' . $search . '%'])
+                        ->orderBy('task', 'asc')
+                        ->paginate($max_data)
+                        ->withQueryString();
         } else {
-            $data = Todo::orderBy('task','asc')->paginate($max_data);
+            $data = Todo::orderBy('task', 'asc')->paginate($max_data);
         }
-
 
         return view('todo.app', compact('data'));
     }
+
 
     /**
      * Show the form for creating a new resource.
