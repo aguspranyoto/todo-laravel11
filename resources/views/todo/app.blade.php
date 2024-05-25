@@ -87,7 +87,7 @@
                                 <!-- 04. Display Data -->
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <span class="task-text">
-                                        {!! $item->is_done == 1 ? $item->task : '<del>'.$item->task.'</del>' !!}
+                                        {!! $item->is_done == 0 ? $item->task : '<del>'.$item->task.'</del>' !!}
                                     </span>
                                     <input type="text" class="form-control edit-input" style="display: none;"
                                         value="{{ $item->task }}">
